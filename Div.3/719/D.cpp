@@ -5,11 +5,11 @@
 using namespace std;
 
 int main() {
-    unordered_map<long long, long long> mp;
-    vector<int> v;
     int tests = 0;
     cin >> tests;
     while (tests--) {
+        unordered_map<long long, long long> mp;
+        vector<int> v;
         int n = 0;
         cin >> n;
         int i = 0;
@@ -24,7 +24,8 @@ int main() {
         for (auto &i : mp) {
             ctr += i.second * (i.second - 1) / 2;
         }
-        cout << ctr;
+        cout << ctr << " ";
     }
     return 0;
 }
+
