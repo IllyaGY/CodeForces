@@ -14,7 +14,6 @@ int main() {
     vector<vector<ll>> v1(n+1);
     vector<ll> v(n+1);
     vector<ll> visited (n+1, 0);
-    visited[1] = 1;
     queue<ll> q;
 
     ll k = n;
@@ -23,27 +22,23 @@ int main() {
     while (k > 1) {
         ll f, s;
         cin >> f >> s;
-        if (min(f,s) == 1) {
-            ll mx = max(f,s) ;
-            q.push(mx);
-            if (v[mx]) v[mx] += v[1];
-        }
         k--;
         v1[f].push_back(s); 
         v1[s].push_back(f);
-
     }
     ll ctr = 0;
-
+    q.push(1);
     while (!q.empty()) {
         ll val = q.front();
         q.pop();
         visited[val] = 1;
+        if (v[val] > m) continue;
+        if (val > 1 && v1[val].size() == 1){ ctr++; continue; }
         ll ct = 0;
         for (auto &i : v1[val]) {
             if (visited[i]) continue;
             q.push(i);
-            if (v[i] || v[val] > m) v[i] += v[val];
+            if (v[i]) v[i] = v[val] + 1;
             ct++;
         }
         if (!ct && v[val] <= m) ctr++;
